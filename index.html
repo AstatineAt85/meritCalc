@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NUST NET Aggregate Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>NUST NET Aggregate Calculator</h1>
+    <form id="aggregateForm">
+      <label>NET Test Score:</label>
+      <input type="number" id="netMarks" required>
+
+      <label>Total NET Marks:</label>
+      <input type="number" id="totalNetMarks" required>
+
+      <label>Obtained Marks (Matriculation):</label>
+      <input type="number" id="matricMarks" required>
+
+      <label>Total Marks (Matriculation):</label>
+      <input type="number" id="totalMatricMarks" required>
+
+      <label>Obtained Marks Intermediate (HSSC-I/Combined):</label>
+      <input type="number" id="interMarks" required>
+
+      <label>Total Marks Intermediate (HSSCI-I/Combined):</label>
+      <input type="number" id="totalInterMarks" required>
+
+      <button type="submit">Calculate Aggregate</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+/* body {
+  font-family: Arial, sans-serif;
+  background: #6b6a6a1c;
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+}
+
+.container {
+  background: rgba(182, 224, 199, 0.46);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+  width: 100%;
+  max-width: 400px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border-color: rgb(0, 0, 0);
+  box-sizing: border-box;
+}
+
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: green;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(5, 187, 5);
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+  text-align: center;
+} */
+
+
+/* === style.css === */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.note {
+  background-color: #fff6d5;
+  border-left: 4px solid #ffbf00;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+form input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#result {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+  h1 {
+    font-size: 20px;
+  }
+  .note {
+    font-size: 13px;
+  }
+  form input, button {
+    font-size: 14px;
+  }
+}
