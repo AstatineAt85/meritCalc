@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeritCalc - Don't Cry, Just Calculate</title>
+  <link rel="stylesheet" href="meritCalc.css">
+<body>
+
+<header>
+  <nav class="nav">
+    <div class="logo">MeritCalc<span>"Parh lo, abhi bhi waqt hai"</span></div>
+    <div class="nav-links" id="navLinks">
+      <a onclick="showView('home')">Home</a>
+      <a onclick="showView('universities')">Universities</a>
+      <a onclick="showView('about')">About</a>
+    </div>
+    <div class="nav-actions">
+      <button class="btn btn-primary" onclick="showView('universities')">Calculate Now</button>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <div id="home" class="view active">
+    <section class="hero">
+      <div class="container">
+        <h1>Try not to cry <br>(Calculate Your Merit)</h1>
+        <p>"Abba nahi manenge... unless your aggregate is 85%+"</p>
+        <button class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;" onclick="showView('universities')">Check My Fate</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>Updated for 2026</h3>
+            <p>Formulas updated faster than your crush's mood swings.</p>
+          </div>
+          <div class="feature-card">
+            <h3>100% Honest</h3>
+            <p>We tell you the truth your coaching center hides from you.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Depression Free</h3>
+            <p>Results come with a virtual hug (and some harsh reality).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="universities" class="view">
+    <section>
+      <div class="container">
+        <h2 style="margin-bottom: 1rem; color: var(--blue);">Pick Your Battlefield</h2>
+        <p style="color: #666; margin-bottom: 2rem;">Where do you want to spend the next 4 years of your life?</p>
+        
+        <div class="uni-grid">
+          <div class="uni-card" onclick="openCalculator('NUST')"><strong>NUST</strong><br><small>H-12 Dreams</small></div>
+          <div class="uni-card" onclick="openCalculator('FAST')"><strong>FAST</strong><br><small>No Social Life</small></div>
+          <div class="uni-card" onclick="openCalculator('PIEAS')"><strong>PIEAS</strong><br><small>The Nerds</small></div>
+          <div class="uni-card" onclick="openCalculator('GIKI')"><strong>GIKI</strong><br><small>Rich & Smart</small></div>
+          <div class="uni-card" onclick="openCalculator('UET')"><strong>UET</strong><br><small>The OG</small></div>
+        </div>
+
+        <div id="calculator">
+          <h2 id="calcTitle"></h2>
+          <p id="humorMsg" class="humor-msg"></p>
+          
+          <div class="calc-grid">
+            <input type="number" id="test" placeholder="Entry Test Score %" />
+            <input type="number" id="fsc" placeholder="FSc Score / 1100" />
+            <input type="number" id="matric" placeholder="Matric Score / 1100" />
+          </div>
+          
+          <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="calculateMerit()">Calculate My Survival Chance</button>
+          
+          <div class="result" id="result"></div>
+          <div class="roast-msg" id="roastMsg"></div>
+          
+          <button id="shareBtn" class="btn" onclick="shareWhatsApp()">Share result with Abba</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="about" class="view">
+    <section>
+      <div class="container">
+        <h2>About</h2>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p class="lead">
+              MeritCalc was not built in a startup office.
+              It was built somewhere between <strong>entry test dates</strong>,
+              <strong>closing merits</strong>, and the emotional gap between
+              <em>“InshAllah ho jaye ga”</em> and <em>“beta backup rakh lo”</em>.
+            </p>
+
+            <p>
+              It represents the <strong>average Pakistani student</strong> —
+              running on chai, parental expectations, and false hope powered by YouTube strategy videos.
+              The kind of student who knows every university’s <em>last year merit</em>,
+              but still believes <strong>“iss saal thora kam ho jaye ga”</strong>.
+            </p>
+
+            <p>
+              This website exists because refreshing PDFs at 3 AM,
+              doing manual aggregate math 17 times,
+              and explaining percentages to Abba should be illegal.
+              So we automated the suffering — and added jokes for emotional support.
+            </p>
+
+            <p class="about-note">Built by the same kind of student who checks closing merit before checking their own marks.</p>
+          </div>
+
+          <aside class="trauma-card">
+            <h4>🧠 The One Who Built This</h4>
+            <p>
+              Not a developer. Not an entrepreneur.
+              Just a <strong>Pakistani student</strong> who survived board exams,
+              feared entry tests, and learned enough code to calculate merit
+              faster than relatives can say <em>“beta kahin admission hua?”</em>.
+            </p>
+            <p>
+              Built with frustration, chai, and the confidence of someone
+              who thought <strong>70% aggregate was “decent”</strong>.
+            </p>
+          </aside>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 MeritCalc · Built by a student who survived the two whole entry test seasons.</p>
+  <p class="footer-joke">Disclaimer: This calculator is accurate, but your luck depends on your Dua's.</p>
+</footer>
+
+<script src="./meritCalc.js"></script>
+
+</body>
+</html>
