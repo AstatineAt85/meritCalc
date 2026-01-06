@@ -54,7 +54,13 @@ const allRoasts = {
 let currentUni = "";
 
 function toggleMenu() {
-  document.getElementById("navLinks").classList.toggle("active");
+  const btn = document.getElementById('menuBtn');
+  const nav = document.getElementById('navLinks');
+  const isOpen = nav.classList.toggle('active');
+  btn.setAttribute('aria-expanded', String(isOpen));
+  // prevent body scroll when menu open on small devices
+  document.body.classList.toggle('menu-open', isOpen);
+  if (isOpen) attachMenuCloseListeners(); else detachMenuCloseListeners();
 }
 
 function scrollToUniversities() {
@@ -63,7 +69,11 @@ function scrollToUniversities() {
 
 function showView(viewId) {
   // hide mobile menu
-  document.getElementById("navLinks").classList.remove("active");
+  const nav = document.getElementById('navLinks');
+  const btn = document.getElementById('menuBtn');
+  nav.classList.remove('active');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('menu-open');
   // toggle views
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const el = document.getElementById(viewId);
@@ -124,6 +134,44 @@ function shareWhatsApp() {
 // Auto-close menu logic for mobile
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', () => {
-    document.getElementById("navLinks").classList.remove("active");
+    const nav = document.getElementById('navLinks');
+    const btn = document.getElementById('menuBtn');
+    nav.classList.remove('active');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('menu-open');
   });
 });
+
+// Close menu when clicking outside or pressing Escape
+let _menuCloseHandler = null;
+function attachMenuCloseListeners() {
+  if (_menuCloseHandler) return;
+  _menuCloseHandler = function (e) {
+    const nav = document.getElementById('navLinks');
+    const btn = document.getElementById('menuBtn');
+    if (!nav || !btn) return;
+    // click outside nav
+    if (e.type === 'click' && !nav.contains(e.target) && !btn.contains(e.target)) {
+      nav.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
+      detachMenuCloseListeners();
+    }
+    // Escape key
+    if (e.type === 'keydown' && e.key === 'Escape') {
+      nav.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('menu-open');
+      detachMenuCloseListeners();
+    }
+  };
+  document.addEventListener('click', _menuCloseHandler);
+  document.addEventListener('keydown', _menuCloseHandler);
+}
+
+function detachMenuCloseListeners() {
+  if (!_menuCloseHandler) return;
+  document.removeEventListener('click', _menuCloseHandler);
+  document.removeEventListener('keydown', _menuCloseHandler);
+  _menuCloseHandler = null;
+}
