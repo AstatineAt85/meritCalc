@@ -4,16 +4,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MeritCalc - Don't Cry, Just Calculate</title>
+  <title>meritCalc - Don't Cry, Just Calculate</title>
   <link rel="stylesheet" href="meritCalc.css">
 
 <body>
 
+
   <header>
     <nav class="nav">
       <div class="logo">
-        <img src="meritCalc-logo.png" alt="MeritCalc" class="site-logo">
-        <div class="logo-text">MeritCalc<span>Parh lo, abhi bhi waqt hai</span></div>
+        <img src="meritCalc-logo.png" alt="MeritCalc" class="site-logo" onclick="showView('home')" style="cursor:pointer">
+        <div class="logo-text" onclick="showView('home')" style="cursor:pointer">merit<spapn class="calc-text">Calc</spapn><span>Parh lo, abhi bhi waqt hai</span></div>
       </div>
       <div class="nav-links" id="navLinks" role="navigation" aria-label="Main navigation">
         <a onclick="showView('home')">Home</a>
@@ -31,10 +32,24 @@
     <div id="home" class="view active">
       <section class="hero">
         <div class="container">
-          <h1>Try not to cry <br>(Calculate Your Merit)</h1>
-          <p>"Abba nahi manenge... unless your aggregate is 85%+"</p>
-          <button class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;"
-            onclick="showView('universities')">Check My Fate</button>
+          <div class="hero-content">
+            <span class="hero-tag">Built for the 2 AM Overthinkers</span>
+            <h1>Calculating merit is <br><span class="highlight">cheaper than therapy.</span></h1>
+            <p>
+              Because hoping for the best is a beautiful sentiment,
+              but your father wants to see the actual decimal points.
+              We do the math while you handle the stress.
+            </p>
+            <div class="hero-btns">
+              <button class="btn btn-primary hero-main-btn" onclick="showView('universities')">
+                Check My Survival Chance
+              </button>
+              <div class="hero-stats-mini">
+                <span>⚡ Formulas updated for 2026</span>
+                <span>☕ Powered by Chai & Stress</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -42,16 +57,16 @@
         <div class="container">
           <div class="features-grid">
             <div class="feature-card">
-              <h3>Updated for 2026</h3>
-              <p>Formulas updated faster than your crush's mood swings.</p>
+              <h3>2026 Policy Sync</h3>
+              <p>Formulas updated faster than your Phupho spreads news about your results.</p>
             </div>
             <div class="feature-card">
-              <h3>100% Honest</h3>
-              <p>We tell you the truth your coaching center hides from you.</p>
+              <h3>Nazar-Protected Math</h3>
+              <p>The digital equivalent of a "Kaala Teeka" for your aggregate.</p>
             </div>
             <div class="feature-card">
-              <h3>Depression Free</h3>
-              <p>Results come with a virtual hug (and some harsh reality).</p>
+              <h3>Relative-Proof Results</h3>
+              <p>Objective data to handle the "Aur beta, admission ho gaya?" questions.</p>
             </div>
           </div>
         </div>
@@ -81,16 +96,23 @@
             <p id="humorMsg" class="humor-msg"></p>
 
             <div class="calc-grid">
-              <input type="number" id="test" placeholder="Entry Test Score %" />
-              <input type="number" id="fsc" placeholder="FSc Score / 1100" />
-              <input type="number" id="matric" placeholder="Matric Score / 1100" />
+              <input type="number" id="test" placeholder="ET Score %" />
+              <input type="number" id="fsc" placeholder="FSc Score %" />
+              <input type="number" id="matric" placeholder="Matric Score %" />
             </div>
 
-            <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="calculateMerit()">Calculate My
-              Survival Chance</button>
+            <button class="btn btn-primary" style="width: 100%; padding: 1rem;" onclick="calculateMerit()">Check My Fate</button>
 
-            <div class="result" id="result"></div>
-            <div class="roast-msg" id="roastMsg"></div>
+            <div class="result-container" id="resultArea" style="display:none; margin-top: 2rem;">
+                <div class="result" id="result"></div>
+                <div id="statusBadge" class="badge"></div>
+                <div class="roast-msg" id="roastMsg"></div>
+                
+                <div class="relative-box" style="margin-top: 1.5rem; background: #f8fafc; padding: 1rem; border-radius: 8px; border-left: 4px solid var(--blue);">
+                    <small style="display:block; color: #666; margin-bottom: 5px;">Response for Relatives:</small>
+                    <p id="relativeReply" style="font-size: 0.9rem; font-weight: 500; color: #333;"></p>
+                </div>
+            </div>
 
             <button id="shareBtn" class="btn" onclick="shareWhatsApp()">Share result with Abba</button>
           </div>
@@ -109,7 +131,7 @@
                 MeritCalc was not built in a startup office.
                 It was built somewhere between <strong>entry test dates</strong>,
                 <strong>closing merits</strong>, and the emotional gap between
-                <em>“InshAllah ho jaye ga”</em> and <em>“beta backup rakh lo”</em>.
+                <em>“Hope for the best”</em> and <em>“beta backup rakh lo”</em>.
               </p>
 
               <p>
@@ -151,8 +173,12 @@
   </main>
 
   <footer>
-    <p>© 2026 MeritCalc · Built by a student who survived the two whole entry test seasons.</p>
-    <p class="footer-joke">Disclaimer: This calculator is accurate, but your luck depends on your Dua's.</p>
+    <div class="footer-content">
+      <p>© 2026 MeritCalc · Built by a student who survived the entry test seasons.</p>
+      <p class="footer-joke">
+        This calculator is accurate — good luck with your applications.
+      </p>
+    </div>
   </footer>
 
   <script src="./meritCalc.js"></script>

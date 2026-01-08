@@ -8,7 +8,7 @@ const messages = {
 };
 
 const nustRoasts = [
-  { min: 85, msg: "MashAllah! Beta CS mil jayega. Mithai lao!" },
+  { min: 85, msg: "Great! Beta CS mil jayega. Mithai lao!" },
   { min: 80, msg: "Safe zone. You can finally sleep for 4 hours." },
   { min: 70, msg: "Borderline. Start praying Tahajjud." },
   { min: 60, msg: "Mechanical mil sakti hai... maybe in some remote campus." },
@@ -16,7 +16,7 @@ const nustRoasts = [
 ];
 
 const fastRoasts = [
-  { min: 88, msg: "MashAllah! You have officially traded 4 years of sleep for a high salary. Worth it?" },
+  { min: 88, msg: "Great! You have officially traded 4 years of sleep for a high salary. Worth it?" },
   { min: 80, msg: "You're in! Buy a mechanical keyboard and say goodbye to your friends now." },
   { min: 72, msg: "Borderline. Even if you get in, the GPA will roast you harder than we can." },
   { min: 60, msg: "Don't worry, even if you don't get into FAST, you'll still have a social life. You win some, you lose some." },
@@ -58,7 +58,7 @@ function toggleMenu() {
   const nav = document.getElementById('navLinks');
   const isOpen = nav.classList.toggle('active');
   btn.setAttribute('aria-expanded', String(isOpen));
-  // prevent body scroll when menu open on small devices
+  
   document.body.classList.toggle('menu-open', isOpen);
   if (isOpen) attachMenuCloseListeners(); else detachMenuCloseListeners();
 }
@@ -68,17 +68,17 @@ function scrollToUniversities() {
 }
 
 function showView(viewId) {
-  // hide mobile menu
+  
   const nav = document.getElementById('navLinks');
   const btn = document.getElementById('menuBtn');
   nav.classList.remove('active');
   if (btn) btn.setAttribute('aria-expanded', 'false');
   document.body.classList.remove('menu-open');
-  // toggle views
+
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   const el = document.getElementById(viewId);
   if (el) el.classList.add('active');
-  // scroll main to top for better UX
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -91,7 +91,7 @@ function openCalculator(uni) {
   document.getElementById("result").innerText = "";
   document.getElementById("roastMsg").innerText = "";
 
-  // Hide share button when switching universities
+  
   document.getElementById("shareBtn").style.display = "none";
 
   calc.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -107,28 +107,96 @@ const formulas = {
 };
 
 function calculateMerit() {
-  const testInput = Number(document.getElementById("test").value);
-  // Convert scores to percentage based on 1100 total
-  const f = (Number(document.getElementById("fsc").value) / 1100) * 100;
-  const m = (Number(document.getElementById("matric").value) / 1100) * 100;
+  // Read raw input strings so we can detect empty fields
+  const testRaw = (document.getElementById("test").value || "").toString();
+  const fscRaw = (document.getElementById("fsc").value || "").toString();
+  const matricRaw = (document.getElementById("matric").value || "").toString();
 
-  let merit = (currentUni === "GIKI") ? formulas.GIKI(testInput, f) : formulas[currentUni](testInput, f, m);
+  // If all fields are empty, prompt user and stop
+  if (testRaw.trim() === "" && fscRaw.trim() === "" && matricRaw.trim() === "") {
+    alert("Fill the fields first, Jani!");
+    return;
+  }
 
+  // Convert to numbers (treat empty as 0)
+  let testPct = testRaw.trim() === "" ? 0 : Number(testRaw);
+  let fscPct = fscRaw.trim() === "" ? 0 : Number(fscRaw);
+  let matricPct = matricRaw.trim() === "" ? 0 : Number(matricRaw);
+
+  // Validate numeric entries
+  if (isNaN(testPct) || isNaN(fscPct) || isNaN(matricPct)) {
+    alert("Please enter valid numeric percentages (0-100).");
+    return;
+  }
+
+  // Clamp percentages to 0-100
+  testPct = Math.min(Math.max(testPct, 0), 100);
+  fscPct = Math.min(Math.max(fscPct, 0), 100);
+  matricPct = Math.min(Math.max(matricPct, 0), 100);
+
+  // Calculate merit using given percentages
+  let merit = (currentUni === "GIKI")
+    ? formulas.GIKI(testPct, fscPct)
+    : formulas[currentUni](testPct, fscPct, matricPct);
+
+  // Show result area and update UI
+  const resultArea = document.getElementById("resultArea");
+  if (resultArea) resultArea.style.display = "block";
   document.getElementById("result").innerText = `${merit.toFixed(2)}%`;
 
+  // Predictive Status Logic
+  const badge = document.getElementById("statusBadge");
+  let statusText = "";
+  let relativeText = "";
+
+ 
+  badge.innerText = statusText;
+  const relEl = document.getElementById("relativeReply");
+  if (relEl) relEl.innerText = `"${relativeText}"`;
+
+  // Roast Logic
   const selectedRoasts = allRoasts[currentUni] || nustRoasts;
   const roast = selectedRoasts.find(r => merit >= r.min);
   document.getElementById("roastMsg").innerText = roast ? roast.msg : "";
 
-  // Show the WhatsApp button now that calculation is done
-  document.getElementById("shareBtn").style.display = "block";
+  const shareBtn = document.getElementById("shareBtn");
+  if (shareBtn) shareBtn.style.display = "block";
 }
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const calc = document.getElementById('calculator');
+  if (calc) calc.style.display = 'none';
+  const shareBtn = document.getElementById('shareBtn');
+  if (shareBtn) shareBtn.style.display = 'none';
+});
 
 function shareWhatsApp() {
   const res = document.getElementById("result").innerText;
   const roast = document.getElementById("roastMsg").innerText;
-  const text = encodeURIComponent(`Baji/Bhaiya, mera ${currentUni} aggregate ${res} aya hai. Roast: ${roast} #MeritCalc`);
-  window.open(`https://wa.me/?text=${text}`, "_blank");
+  const uni = (typeof currentUni !== 'undefined' && currentUni) ? currentUni : "The Uni";
+
+  const link = "https://meritcalc.vercel.app";
+
+  const messages = [
+    `i’m not cooked, i’m medium rare. 🥩\n\n${uni} aggregate: ${res}\n\n"${roast}"\n\ncalculate your downfall here:\n👉 ${link}`,
+
+    `the math is mathing but the merit isn't.\n\n${uni} score: ${res}\n\n"${roast}"\n\ngo check yours so i feel better about myself. pls.\n👉 ${link}`,
+
+    `not to be a girlboss but i might be unemployed.\n\n${uni}: ${res}\n\n"${roast}"\n\nsee if you're cooked too:\n👉 ${link}\n#meritcalc`,
+
+    `my academic validation is in the trenches.\n\n${res} at ${uni}.\n\n"${roast}"\n\ncheck yours at your own risk:\n👉 ${link}`,
+
+    `if "academic weapon" was a joke, it would be this:\n\n${uni} agg: ${res}\n"${roast}"\n\nreal ones check their merit here:\n👉 ${link}`,
+
+    `manifesting a miracle because this ain't it.\n\n${uni} aggregate: ${res}\n"${roast}"\n\ncome join the waiting list of pain:\n👉 ${link}`
+  ];
+
+  const text = encodeURIComponent(
+    messages[Math.floor(Math.random() * messages.length)]
+  );
+
+  window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
 }
 
 // Auto-close menu logic for mobile
@@ -142,7 +210,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   });
 });
 
-// Close menu when clicking outside or pressing Escape
+
 let _menuCloseHandler = null;
 function attachMenuCloseListeners() {
   if (_menuCloseHandler) return;
@@ -150,14 +218,14 @@ function attachMenuCloseListeners() {
     const nav = document.getElementById('navLinks');
     const btn = document.getElementById('menuBtn');
     if (!nav || !btn) return;
-    // click outside nav
+    
     if (e.type === 'click' && !nav.contains(e.target) && !btn.contains(e.target)) {
       nav.classList.remove('active');
       btn.setAttribute('aria-expanded', 'false');
       document.body.classList.remove('menu-open');
       detachMenuCloseListeners();
     }
-    // Escape key
+    
     if (e.type === 'keydown' && e.key === 'Escape') {
       nav.classList.remove('active');
       btn.setAttribute('aria-expanded', 'false');
